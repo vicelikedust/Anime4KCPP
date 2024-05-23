@@ -56,11 +56,12 @@ static void processVideoWithProgress(Anime4KCPP::VideoProcessor& videoPeocessor)
 static bool mergeAudio2Video(const std::string& dstFile, const std::string& srcFile, const std::string& tmpFile)
 {
     std::cout << "Merging audio..." << std::endl;
-
+    
+    // Construct the FFmpeg command with updated stream mapping
     std::string command(
         "ffmpeg -loglevel 40 -i \"" +
         tmpFile + "\" -i \"" + srcFile +
-        "\" -c copy -map 0:v -map 1 -map -1:v -y \"" +
+        "\" -c copy -map 0:v -map 1:a:0 -map 1:a:1 -y \"" +
         dstFile + "\"");
 
     std::cout << command << std::endl;
